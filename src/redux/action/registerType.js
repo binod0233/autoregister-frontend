@@ -1,0 +1,2 @@
+export const REGISTER_VEHICLE = "REGISTER_VEHICLE";
+export const FETCH_VEHICLE = "FETCH_VEHICLE";
