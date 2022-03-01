@@ -65,7 +65,6 @@ function RegisterContainer(props) {
     vehicleNumber: Yup.string().required("Enter the vehicle number"),
   });
   const onSubmit = (values, onSubmitProps) => {
-    // console.log("Form data dddddddddddddddddddddddddddddd", values);
     onSubmitProps.resetForm();
     props.registerVehicle(
       values.name,
@@ -73,18 +72,32 @@ function RegisterContainer(props) {
       values.phone,
       values.vehicleNumber
     );
-    // props.addPost(values.name);
   };
-  console.log("status   before", status);
+  console.log("registerd status   ", status);
+  if (status === "success") {
+    var registerAction = (
+      <div>
+        <h1>Pay entry fee</h1>
+      </div>
+    );
+  }
+  if (status === "failure") {
+    registerAction = (
+      <div>
+        <h1>Vehicle not registered</h1>
+      </div>
+    );
+  }
+
   const onCheck = (values, onCheckProps) => {
     console.log("Form data dddddddddddddddddddddddddddddd", values);
     onCheckProps.resetForm();
     let check = vehicleNumber.includes(values.vehicleNumber);
     if (check) {
-      check = "Vehicle already registered";
+      check = "success";
       setCurrentStatus(check);
     } else {
-      check = "not registered";
+      check = "failure";
       setCurrentStatus(check);
     }
   };
@@ -173,6 +186,8 @@ function RegisterContainer(props) {
             </Formik>
           </Paper>
         </Grid>
+        <br />
+        <br />
         <Grid container direction="row" justify="center" alignItems="center">
           <Paper className={classes.paper} elevation={2}>
             <Typography>Check Stauts</Typography>
@@ -232,6 +247,9 @@ function RegisterContainer(props) {
             </Formik>
           </Paper>
         </Grid>
+        <div>
+          <h1>{registerAction}</h1>
+        </div>
       </div>
     </>
   );
