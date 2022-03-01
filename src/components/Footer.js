@@ -8,7 +8,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit">Online Token System</Link>{" "}
+      <Link color="inherit">Auto Vehicle Register System</Link>{" "}
       {new Date().getFullYear()}
       {"."}
     </Typography>
