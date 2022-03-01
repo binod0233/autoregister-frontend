@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 function RegisterContainer(props) {
   const classes = useStyles();
+  const [status, setCurrentStatus] = useState("");
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchVehicle());
@@ -44,11 +45,16 @@ function RegisterContainer(props) {
   }, [dispatch]);
 
   const allVehicles = useSelector((state) => state.register.allVehicles);
-  console.log("vehicle details", allVehicles);
+  var vehicleNumber = allVehicles.map((vehicle) => vehicle.vehiclenumber);
+  console.log("vehicle details", vehicleNumber);
 
   const initialValues = {
     name: "",
     phone: "",
+    email: "",
+    vehicleNumber: "",
+  };
+  const initialCheck = {
     email: "",
     vehicleNumber: "",
   };
@@ -68,6 +74,19 @@ function RegisterContainer(props) {
       values.vehicleNumber
     );
     // props.addPost(values.name);
+  };
+  console.log("status   before", status);
+  const onCheck = (values, onCheckProps) => {
+    console.log("Form data dddddddddddddddddddddddddddddd", values);
+    onCheckProps.resetForm();
+    let check = vehicleNumber.includes(values.vehicleNumber);
+    if (check) {
+      check = "Vehicle already registered";
+      setCurrentStatus(check);
+    } else {
+      check = "not registered";
+      setCurrentStatus(check);
+    }
   };
   return (
     <>
@@ -144,6 +163,65 @@ function RegisterContainer(props) {
                             color="primary"
                           >
                             Submit
+                          </Button>
+                        </Col>
+                      </Row>
+                    </Form>
+                  </>
+                );
+              }}
+            </Formik>
+          </Paper>
+        </Grid>
+        <Grid container direction="row" justify="center" alignItems="center">
+          <Paper className={classes.paper} elevation={2}>
+            <Typography>Check Stauts</Typography>
+            <Typography>{props.msg}</Typography>
+
+            <Formik
+              initialValues={initialCheck}
+              //   validationSchema={validationSchema}
+              onSubmit={onCheck}
+            >
+              {(formik) => {
+                return (
+                  <>
+                    <Form>
+                      <Row>
+                        <Col>
+                          <Field
+                            component={TextField}
+                            label="Email"
+                            name="email"
+                            size="medium"
+                            id="standard-size-small"
+                            InputProps={{ notched: "true" }}
+                          />
+                        </Col>
+
+                        <Col>
+                          <Field
+                            component={TextField}
+                            label="vehicleNumber"
+                            name="vehicleNumber"
+                            size="medium"
+                            id="standard-size-small"
+                            InputProps={{ notched: "true" }}
+                          />
+                        </Col>
+                        <Typography
+                          align="left"
+                          variant="h6"
+                          noWrap
+                        ></Typography>
+                        <Col>
+                          <Button
+                            type="submit"
+                            disabled={!formik.isValid}
+                            variant="contained"
+                            color="primary"
+                          >
+                            Check
                           </Button>
                         </Col>
                       </Row>
