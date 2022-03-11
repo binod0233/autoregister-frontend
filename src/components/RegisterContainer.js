@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
+
 import { connect } from "react-redux";
 import { registerVehicle, fetchVehicle } from "../redux";
+import { addPayment, updatePayment } from "../redux";
 import { makeStyles, createTheme } from "@material-ui/core/styles";
 import { Formik, Form, Field } from "formik";
 import { Button, Paper, Grid, Typography } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
 import { useSelector, useDispatch } from "react-redux";
+// import moment from "moment";
 
 // import { Link } from "react-router-dom";
 
@@ -33,20 +36,16 @@ const useStyles = makeStyles((theme) => ({
 
 function RegisterContainer(props) {
   const classes = useStyles();
-  const [status, setCurrentStatus] = useState("");
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchVehicle());
-    const interval = setInterval(() => {
-      dispatch(fetchVehicle());
-    }, 10000000);
 
-    return () => clearInterval(interval);
-  }, [dispatch]);
+  // const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(fetchVehicle());
+  //   const interval = setInterval(() => {
+  //     dispatch(fetchVehicle());
+  //   }, 9000);
 
-  const allVehicles = useSelector((state) => state.register.allVehicles);
-  var vehicleNumber = allVehicles.map((vehicle) => vehicle.vehiclenumber);
-  console.log("vehicle details", vehicleNumber);
+  //   return () => clearInterval(interval);
+  // }, [dispatch]);
 
   const initialValues = {
     name: "",
@@ -54,10 +53,7 @@ function RegisterContainer(props) {
     email: "",
     vehicleNumber: "",
   };
-  const initialCheck = {
-    email: "",
-    vehicleNumber: "",
-  };
+
   const validationSchema = Yup.object({
     name: Yup.string().required("Enter the name"),
     email: Yup.string().email().required("Enter the email"),
@@ -72,35 +68,10 @@ function RegisterContainer(props) {
       values.phone,
       values.vehicleNumber
     );
+    props.addPayment(values.vehicleNumber, true, false, NaN, NaN);
+    // props.updatePayment("622a2dfa0dfb0aedf6fba074", "true", 20, 20);
   };
-  console.log("registerd status   ", status);
-  if (status === "success") {
-    var registerAction = (
-      <div>
-        <h1>Pay entry fee</h1>
-      </div>
-    );
-  }
-  if (status === "failure") {
-    registerAction = (
-      <div>
-        <h1>Vehicle not registered</h1>
-      </div>
-    );
-  }
 
-  const onCheck = (values, onCheckProps) => {
-    console.log("Form data dddddddddddddddddddddddddddddd", values);
-    onCheckProps.resetForm();
-    let check = vehicleNumber.includes(values.vehicleNumber);
-    if (check) {
-      check = "success";
-      setCurrentStatus(check);
-    } else {
-      check = "failure";
-      setCurrentStatus(check);
-    }
-  };
   return (
     <>
       <div className={classes.root}>
@@ -186,70 +157,8 @@ function RegisterContainer(props) {
             </Formik>
           </Paper>
         </Grid>
-        <br />
-        <br />
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Paper className={classes.paper} elevation={2}>
-            <Typography>Check Stauts</Typography>
-            <Typography>{props.msg}</Typography>
 
-            <Formik
-              initialValues={initialCheck}
-              //   validationSchema={validationSchema}
-              onSubmit={onCheck}
-            >
-              {(formik) => {
-                return (
-                  <>
-                    <Form>
-                      <Row>
-                        <Col>
-                          <Field
-                            component={TextField}
-                            label="Email"
-                            name="email"
-                            size="medium"
-                            id="standard-size-small"
-                            InputProps={{ notched: "true" }}
-                          />
-                        </Col>
-
-                        <Col>
-                          <Field
-                            component={TextField}
-                            label="vehicleNumber"
-                            name="vehicleNumber"
-                            size="medium"
-                            id="standard-size-small"
-                            InputProps={{ notched: "true" }}
-                          />
-                        </Col>
-                        <Typography
-                          align="left"
-                          variant="h6"
-                          noWrap
-                        ></Typography>
-                        <Col>
-                          <Button
-                            type="submit"
-                            disabled={!formik.isValid}
-                            variant="contained"
-                            color="primary"
-                          >
-                            Check
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Form>
-                  </>
-                );
-              }}
-            </Formik>
-          </Paper>
-        </Grid>
-        <div>
-          <h1>{registerAction}</h1>
-        </div>
+        <div></div>
       </div>
     </>
   );
@@ -271,6 +180,12 @@ const mapDispatchtoProps = (dispatch) => {
     registerVehicle: function (name, email, phone, vehicleNumber) {
       dispatch(registerVehicle(name, email, phone, vehicleNumber));
     },
+    addPayment: function (vehiclenumber, epaystatus, finestatus, efee, fine) {
+      dispatch(addPayment(vehiclenumber, epaystatus, finestatus, efee, fine));
+    },
+    // updatePayment: function (id, epaystatus, fine, efee) {
+    //   dispatch(updatePayment(id, epaystatus, fine, efee));
+    // },
   };
 };
 

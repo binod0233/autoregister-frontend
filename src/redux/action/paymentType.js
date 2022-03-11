@@ -1,0 +1,3 @@
+export const ADD_PAYMENT = "ADD_PAYMENT";
+export const FETCH_PAYMENT = "FETCH_PAYMENT";
+export const UPDATE_PAYMENT = "UPDATE_PAYMENT";
