@@ -46,11 +46,9 @@ export const registerVehicle = (name, email, phone, vehicleNumber) => {
     axios(OPTIONS)
       .then((res) => {
         console.log("well done", res.data);
-        let message = res.data;
-        if (message === true) {
-          message = "Vehicle Registered successfully";
-        }
-        console.log("error data", message);
+
+        let message = "Vehicle Registered successfully";
+        console.log("error da555555555555ta", message);
         dispatch({
           type: REGISTER_VEHICLE,
           payload: message,
@@ -59,10 +57,10 @@ export const registerVehicle = (name, email, phone, vehicleNumber) => {
       .catch((err) => {
         let message = "";
         if (err) {
-          message = "Email or Username already taken";
+          message = "Email or vehicle no. already registerd";
         }
 
-        console.log("Registration error", err);
+        console.log("Registration error", message);
         dispatch({
           type: REGISTER_VEHICLE,
           payload: message,

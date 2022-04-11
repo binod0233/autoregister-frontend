@@ -8,12 +8,10 @@ import { Formik, Form, Field } from "formik";
 import { Button, Paper, Grid, Typography } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
 import { useSelector, useDispatch } from "react-redux";
-// import moment from "moment";
-
-// import { Link } from "react-router-dom";
 
 import * as Yup from "yup";
 import { Row, Col } from "react-bootstrap";
+import Header from "./Header";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,18 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RegisterContainer(props) {
-  const classes = useStyles();
-
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(fetchVehicle());
-  //   const interval = setInterval(() => {
-  //     dispatch(fetchVehicle());
-  //   }, 9000);
-
-  //   return () => clearInterval(interval);
-  // }, [dispatch]);
-
+  console.log("ssssssssssssssssssssssssssssssssssssss", props.message);
   const initialValues = {
     name: "",
     phone: "",
@@ -68,95 +55,106 @@ function RegisterContainer(props) {
       values.phone,
       values.vehicleNumber
     );
-    props.addPayment(values.vehicleNumber, true, false, NaN, NaN);
-    // props.updatePayment("622a2dfa0dfb0aedf6fba074", "true", 20, 20);
+    if (props.message === "Vehicle Registered successfully") {
+      props.addPayment(values.vehicleNumber, false, false, 10, 0);
+    }
   };
 
   return (
     <>
-      <div className={classes.root}>
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Paper className={classes.paper} elevation={2}>
-            <Typography>Register Vehicle</Typography>
-            <Typography>{props.msg}</Typography>
+      <div>
+        <main class="page login-page">
+          <section class="clean-block clean-form dark">
+            <div class="container">
+              <div class="block-heading">
+                <br />
+                <h2 class="text-info">Log In</h2>
+                <p>Lorem ipsum dolor sit amet, c in, mattis vitae leo.</p>
+              </div>
 
-            <Formik
-              initialValues={initialValues}
-              validationSchema={validationSchema}
-              onSubmit={onSubmit}
-            >
-              {(formik) => {
-                return (
-                  <>
-                    <Form>
-                      <Row>
-                        <Col>
-                          <Field
-                            component={TextField}
-                            label="name"
-                            name="name"
-                            size="medium"
-                            id="standard-size-small"
-                            InputProps={{ notched: "true" }}
-                          />
-                        </Col>
-                        <Col>
-                          <Field
-                            component={TextField}
-                            label="Email"
-                            name="email"
-                            size="medium"
-                            id="standard-size-small"
-                            InputProps={{ notched: "true" }}
-                          />
-                        </Col>
-                        <Col>
-                          <Field
-                            component={TextField}
-                            label="Phone"
-                            type="phone"
-                            name="phone"
-                            size="small"
-                            id="standard-size-small"
-                            InputProps={{ notched: "true" }}
-                          />
-                        </Col>
-                        <Col>
-                          <Field
-                            component={TextField}
-                            label="vehicleNumber"
-                            name="vehicleNumber"
-                            size="medium"
-                            id="standard-size-small"
-                            InputProps={{ notched: "true" }}
-                          />
-                        </Col>
-                        <Typography align="left" variant="h6" noWrap>
-                          {/* <h6>
+              <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={onSubmit}
+              >
+                {(formik) => {
+                  return (
+                    <>
+                      <Form class="Form-group">
+                        <div>
+                          <Typography>{props.message}</Typography>
+
+                          {/* <Row class="Form-group"> */}
+                          <Col>
+                            <Field
+                              component={TextField}
+                              label="name"
+                              name="name"
+                              // size="medium"
+                              id="standard-size-small"
+                              InputProps={{ notched: "true" }}
+                            />
+                          </Col>
+                          <Col>
+                            <Field
+                              component={TextField}
+                              label="Email"
+                              name="email"
+                              size="medium"
+                              id="standard-size-medium"
+                              InputProps={{ notched: "true" }}
+                            />
+                          </Col>
+                          <Col>
+                            <Field
+                              component={TextField}
+                              label="Phone"
+                              type="phone"
+                              name="phone"
+                              size="small"
+                              id="standard-size-small"
+                              InputProps={{ notched: "true" }}
+                            />
+                          </Col>
+                          <Col>
+                            <Field
+                              component={TextField}
+                              label="vehicleNumber"
+                              name="vehicleNumber"
+                              // size="large"
+                              id="standard-size-small"
+                              InputProps={{ notched: "true" }}
+                            />
+                          </Col>
+                          <Typography align="left" variant="h6" noWrap>
+                            {/* <h6>
                             Already have an account?
                             <Link to="/login">
                               <p>Log in</p>
                             </Link>
                           </h6> */}
-                        </Typography>
-                        <Col>
-                          <Button
-                            type="submit"
-                            disabled={!formik.isValid}
-                            variant="contained"
-                            color="primary"
-                          >
-                            Submit
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Form>
-                  </>
-                );
-              }}
-            </Formik>
-          </Paper>
-        </Grid>
+                          </Typography>
+                          <br />
+                          <Col>
+                            <Button
+                              type="submit"
+                              disabled={!formik.isValid}
+                              variant="contained"
+                              color="primary"
+                            >
+                              Submit
+                            </Button>
+                          </Col>
+                          {/* </Row> */}
+                        </div>
+                      </Form>
+                    </>
+                  );
+                }}
+              </Formik>
+            </div>
+          </section>
+        </main>
 
         <div></div>
       </div>
@@ -171,7 +169,7 @@ const mapStatetoProps = (state) => {
     phone: state.register.phone,
     vehicleNumber: state.register.vehicleNumber,
     allVehicles: state.register.allVehicles,
-    msg: state.register.msg,
+    message: state.register.message,
   };
 };
 
@@ -183,9 +181,6 @@ const mapDispatchtoProps = (dispatch) => {
     addPayment: function (vehiclenumber, epaystatus, finestatus, efee, fine) {
       dispatch(addPayment(vehiclenumber, epaystatus, finestatus, efee, fine));
     },
-    // updatePayment: function (id, epaystatus, fine, efee) {
-    //   dispatch(updatePayment(id, epaystatus, fine, efee));
-    // },
   };
 };
 

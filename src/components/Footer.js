@@ -6,12 +6,14 @@ import Link from "@material-ui/core/Link";
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit">Auto Vehicle Register System</Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
+    <div class="footer-copyright">
+      <Typography align="center">
+        {"Copyright © "}
+        <Link color="inherit">Auto Vehicle Register System</Link>{" "}
+        {new Date().getFullYear()}
+        {"."}
+      </Typography>
+    </div>
   );
 }
 

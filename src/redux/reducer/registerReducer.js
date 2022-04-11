@@ -4,6 +4,7 @@ const initialState = {
   email: "",
   phone: "",
   vehicleNumber: "",
+  message: "",
   allVehicles: [],
 };
 

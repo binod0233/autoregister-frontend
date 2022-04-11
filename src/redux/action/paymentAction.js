@@ -37,7 +37,7 @@ export const addPayment = (
   efee,
   fine
 ) => {
-  console.log("addPayment", vehiclenumber, epaystatus, finestatus, efee, fine);
+  console.log("addPayment", epaystatus, finestatus, vehiclenumber, efee, fine);
   return function (dispatch) {
     var OPTIONS = {
       url: `http://localhost:1337/payments`,
@@ -104,7 +104,7 @@ export const updatePayment = (id, epaystatus, finestatus, fine, efee) => {
         if (message === true) {
           message = "payment Registered successfully";
         }
-        console.log("error data", message);
+        // console.log("error data", message);
         dispatch({
           type: UPDATE_PAYMENT,
           payload: message,
@@ -116,7 +116,7 @@ export const updatePayment = (id, epaystatus, finestatus, fine, efee) => {
           message = "fine or Username already taken";
         }
 
-        console.log("Registration error", err);
+        // console.log("Registration error", err);
         dispatch({
           type: UPDATE_PAYMENT,
           payload: message,

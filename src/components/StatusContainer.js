@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 // import { Link } from "react-router-dom";
 
 import { Row, Col } from "react-bootstrap";
+import Header from "./Header";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,6 +39,7 @@ function StatusContainer(props) {
   const [status, setCurrentStatus] = useState("");
   const [vnumber, setVnumber] = useState("");
   const [pay, setPay] = useState("");
+  const [sete, setSete] = useState("10");
 
   // const [params, setParams] = useState("");
 
@@ -104,10 +106,9 @@ function StatusContainer(props) {
       ) {
         var entryAction = (
           <div>
-            <h1>dffdsffdfsff</h1>
-            <form action="https://uat.esewa.com.np/epay/main" method="POST">
-              <input value="10" name="tAmt" type="hidden" />
-              <input value="10" name="amt" type="hidden" />
+            {/* <form action="https://uat.esewa.com.np/epay/main" method="POST">
+              <input value={payment.efee} name="tAmt" type="hidden" />
+              <input value={payment.efee} name="amt" type="hidden" />
               <input value="0" name="txAmt" type="hidden" />
               <input value="0" name="psc" type="hidden" />
               <input value="0" name="pdc" type="hidden" />
@@ -129,9 +130,10 @@ function StatusContainer(props) {
                 variant="contained"
                 color="primary"
               >
-                pay entry fee=10
+                pay entry fee={payment.efee}
               </Button>
-            </form>
+            </form> */}
+            <h3>{payment.efee}</h3>
           </div>
         );
         return <>{entryAction}</>;
@@ -141,7 +143,7 @@ function StatusContainer(props) {
       ) {
         entryAction = (
           <div>
-            <h1>entry fine paid</h1>
+            <h1>{payment.efee}</h1>
           </div>
         );
         return <>{entryAction}</>;
@@ -157,10 +159,9 @@ function StatusContainer(props) {
       ) {
         var fineAction = (
           <div>
-            <h1>dffdsffdfsff</h1>
-            <form action="https://uat.esewa.com.np/epay/main" method="POST">
-              <input value="20" name="tAmt" type="hidden" />
-              <input value="20" name="amt" type="hidden" />
+            {/* <form action="https://uat.esewa.com.np/epay/main" method="POST">
+              <input value={payment.fine} name="tAmt" type="hidden" />
+              <input value={payment.fine} name="amt" type="hidden" />
               <input value="0" name="txAmt" type="hidden" />
               <input value="0" name="psc" type="hidden" />
               <input value="0" name="pdc" type="hidden" />
@@ -182,9 +183,10 @@ function StatusContainer(props) {
                 variant="contained"
                 color="primary"
               >
-                pay fine fee=20
+                pay fine ={payment.fine}
               </Button>
-            </form>
+            </form> */}
+            <h3>{payment.fine}</h3>
           </div>
         );
         return <>{fineAction}</>;
@@ -194,7 +196,7 @@ function StatusContainer(props) {
       ) {
         fineAction = (
           <div>
-            <h1>entry fine paid</h1>
+            <h4>{payment.fine}</h4>
           </div>
         );
         return <>{fineAction}</>;
@@ -208,11 +210,36 @@ function StatusContainer(props) {
   if (status === "success") {
     var registerAction = (
       <div>
-        <h1>Pay entry fee {vnumber}</h1>
-        <h1>{paymentStatus}</h1>
-        <h1>Pay fine fee {fineStatus}</h1>
-        <br />
-        {/* <h2>Pay fine {fineAction}</h2> */}
+        {/* <h4>Pay entry fee {vnumber}</h4>
+        <h4>{paymentStatus}</h4>
+        <h4>Pay fine fee {fineStatus}</h4>
+        <br /> */}
+        <main class="page payment-page">
+          <section class="clean-block payment-form dark">
+            <div class="container">
+              <div class="block-heading">
+                <h2 class="text-info">Payment</h2>
+              </div>
+              <form>
+                <div class="products">
+                  <h3 class="title">Checkout</h3>
+                  <div class="item">
+                    <span class="price">{paymentStatus}</span>
+                    <p class="item-name"> Entry fee</p>
+                  </div>
+                  <div class="item">
+                    <span class="price">${fineStatus}</span>
+                    <p class="item-name"> Fine</p>
+                  </div>
+                  <div class="total">
+                    <span>Total</span>
+                    <span class="price">$320</span>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </section>
+        </main>
       </div>
     );
   }
@@ -241,22 +268,25 @@ function StatusContainer(props) {
   };
   return (
     <>
-      <div className={classes.root}>
-        <Grid container direction="row" justify="center" alignItems="center">
-          <Paper className={classes.paper} elevation={2}>
-            <Typography>Check Stauts</Typography>
-            <Typography>{props.msg}</Typography>
-
-            <Formik
-              initialValues={initialCheck}
-              //   validationSchema={validationSchema}
-              onSubmit={onCheck}
-            >
-              {(formik) => {
-                return (
-                  <>
-                    <Form>
-                      <Row>
+      <div>
+        <main class="page login-page">
+          <section class="clean-block clean-form dark">
+            <div class="container">
+              <div class="block-heading">
+                <br />
+                <h2 class="text-info">Log In</h2>
+                <p>Lorem ipsum dolor sit amet, c in, mattis vitae leo.</p>
+              </div>
+              <Formik
+                initialValues={initialCheck}
+                //   validationSchema={validationSchema}
+                onSubmit={onCheck}
+              >
+                {(formik) => {
+                  return (
+                    <>
+                      <Form class="Form-group">
+                        {/* <Row> */}
                         <Col>
                           <Field
                             component={TextField}
@@ -284,6 +314,7 @@ function StatusContainer(props) {
                           noWrap
                         ></Typography>
                         <Col>
+                          <br />
                           <Button
                             type="submit"
                             disabled={!formik.isValid}
@@ -293,14 +324,15 @@ function StatusContainer(props) {
                             Check
                           </Button>
                         </Col>
-                      </Row>
-                    </Form>
-                  </>
-                );
-              }}
-            </Formik>
-          </Paper>
-        </Grid>
+                        {/* </Row> */}
+                      </Form>
+                    </>
+                  );
+                }}
+              </Formik>
+            </div>
+          </section>
+        </main>
         <div>
           <h1>{registerAction}</h1>
           {/* <h1>{vehicleNumber}</h1> */}

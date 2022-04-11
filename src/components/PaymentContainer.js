@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { Route, Routes, Link, useNavigate } from "react-router-dom";
 import { registerVehicle, fetchVehicle } from "../redux";
 import { fetchPayment, addPayment, updatePayment } from "../redux";
 import { makeStyles, createTheme } from "@material-ui/core/styles";
@@ -11,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import queryString from "query-string";
 
 import { Row, Col } from "react-bootstrap";
+import RegisterContainer from "./RegisterContainer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +37,6 @@ function PaymentContainer(props) {
   const classes = useStyles();
   const [status, setCurrentStatus] = useState("");
   const [vnumber, setVnumber] = useState("");
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchVehicle());
@@ -56,6 +57,7 @@ function PaymentContainer(props) {
   }, [dispatch]);
 
   const queryParams = queryString.parse(window.location.search);
+  let navigate = useNavigate();
 
   const allPayments = useSelector((state) => state.payment.allPayments);
   console.log("parameter", queryParams);
@@ -75,12 +77,15 @@ function PaymentContainer(props) {
             10
           )
         );
+
         var paid = (
           <div>
+            {" "}
             <h1>Payment Successful</h1>
             <h2>Your payment of Rs. 10 has been received</h2>
           </div>
         );
+        navigate("/status?q=su&amt=10.0");
       } else if (queryParams.q === "su") {
         dispatch(
           updatePayment(payment.id, payment.epaystatus, "true", 0, payment.efee)
