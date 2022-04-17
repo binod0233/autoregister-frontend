@@ -35,9 +35,18 @@ export const addPayment = (
   epaystatus,
   finestatus,
   efee,
-  fine
+  fine,
+  remark
 ) => {
-  console.log("addPayment", epaystatus, finestatus, vehiclenumber, efee, fine);
+  console.log(
+    "addPayment",
+    epaystatus,
+    finestatus,
+    vehiclenumber,
+    efee,
+    fine,
+    remark
+  );
   return function (dispatch) {
     var OPTIONS = {
       url: `http://localhost:1337/payments`,
@@ -49,6 +58,7 @@ export const addPayment = (
         phonenumber: finestatus,
         vehiclenumber: vehiclenumber,
         efee: efee,
+        remark: remark,
       },
       headers: { "content-type": "application/json" },
     };
@@ -81,8 +91,15 @@ export const addPayment = (
   };
 };
 
-export const updatePayment = (id, epaystatus, finestatus, fine, efee) => {
-  console.log("updatePayment", id, epaystatus, finestatus, fine, efee);
+export const updatePayment = (
+  id,
+  epaystatus,
+  finestatus,
+  fine,
+  efee,
+  remark
+) => {
+  console.log("updatePayment", id, epaystatus, finestatus, fine, efee, remark);
   return function (dispatch) {
     var OPTIONS = {
       url: `http://localhost:1337/payments/${id}`,
@@ -93,6 +110,7 @@ export const updatePayment = (id, epaystatus, finestatus, fine, efee) => {
         finestatus: finestatus,
         fine: fine,
         efee: efee,
+        remark: remark,
       },
       headers: { "content-type": "application/json" },
     };

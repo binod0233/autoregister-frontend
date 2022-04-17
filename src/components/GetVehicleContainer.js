@@ -1,48 +1,47 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { registerVehicle, fetchVehicle } from "../redux";
-import { fetchPayment, addPayment, updatePayment } from "../redux";
-import { makeStyles, createTheme } from "@material-ui/core/styles";
-import { Formik, Form, Field } from "formik";
-import { Button, Paper, Grid, Typography } from "@material-ui/core";
-import { TextField } from "formik-material-ui";
+import { styled } from "@mui/material/styles";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { fetchCounter } from "../redux";
 import { useSelector, useDispatch } from "react-redux";
+import moment from "moment";
+import { fetchPayment, fetchVehicle, updatePayment } from "../redux";
+import { date } from "yup";
 
-// import moment from "moment";
-
-// import { Link } from "react-router-dom";
-
-import { Row, Col } from "react-bootstrap";
-import Header from "./Header";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(2),
-    },
-    paddingTop: "1.5rem",
-    paddingBottom: "1.5rem",
-    backgroundColor: "#fafafa",
-
-    flexGrow: 1,
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
   },
-  paper: {
-    padding: theme.spacing(2.5),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-    backgroundColor: " #ededed",
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
   },
 }));
 
-function StatusContainer(props) {
-  const classes = useStyles();
-  const [status, setCurrentStatus] = useState("");
-  const [vnumber, setVnumber] = useState("");
-  const [pay, setPay] = useState("");
-
-  // const [params, setParams] = useState("");
-
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
+const GetVehicleContainer = (props) => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCounter());
+    const interval = setInterval(() => {
+      dispatch(fetchCounter());
+    }, 9000);
+    return () => clearInterval(interval);
+  }, [dispatch]);
   useEffect(() => {
     dispatch(fetchVehicle());
     const interval = setInterval(() => {
@@ -51,7 +50,6 @@ function StatusContainer(props) {
 
     return () => clearInterval(interval);
   }, [dispatch]);
-
   useEffect(() => {
     dispatch(fetchPayment());
     const interval = setInterval(() => {
@@ -61,282 +59,112 @@ function StatusContainer(props) {
     return () => clearInterval(interval);
   }, [dispatch]);
 
-  // setParams(queryParams.q);
-  // const location = searchParams.get("location")
-
+  const allCounter = useSelector((state) => state.counter.allCounter);
   const allPayments = useSelector((state) => state.payment.allPayments);
-
   const allVehicles = useSelector((state) => state.register.allVehicles);
-  // var vehicleNumber = allVehicles.map((vehicle) => vehicle.createdAt);
-  var vehicleNumber2 = allVehicles.map((vehicle) => vehicle.vehiclenumber);
-
-  console.log("vehicleNumber2", vnumber);
-
-  //console.log(); // 11/3/2019
-  //   let isoDate = vehicleNumber.map((vehicle) =>
-  //     moment(vehicle).format("HHmmss  ")
-  //   );
-
-  var date1 = new Date(vehicleNumber2[0]);
-  var date2 = new Date(vehicleNumber2[4]);
-  var ElapsedSeconds = (date2 - date1) / 1000;
-  var ElapsedHours = ElapsedSeconds / 3600;
-
-  console.log(
-    "vehicle detailsdddddddddddddddddddddddddddddddddd",
-    allPayments
-
-    // moment.format(isoDate[1], "HH:mm:ss  ") -
-    //   moment.format(isoDate[0], "HH:mm:ss  ")
-  );
-
-  const initialCheck = {
-    email: "",
-    vehicleNumber: "",
-  };
-
-  var random = Math.floor(Math.random() * 1000000);
-  if (pay === "valid") {
-    var paymentStatus = allPayments.map((payment) => {
-      console.log("paymenssssssssssssssssddt", payment.epaystatus);
-      if (
-        (payment.epaystatus === false) &
-        (payment.vehiclenumber === vnumber)
-      ) {
-        var entryAction = (
-          <div>
-            <form action="https://uat.esewa.com.np/epay/main" method="POST">
-              <input value={payment.efee} name="tAmt" type="hidden" />
-              <input value={payment.efee} name="amt" type="hidden" />
-              <input value="0" name="txAmt" type="hidden" />
-              <input value="0" name="psc" type="hidden" />
-              <input value="0" name="pdc" type="hidden" />
-              <input value="EPAYTEST" name="scd" type="hidden" />
-              <input value={random} name="pid" type="hidden" />
-              <input
-                value="http://localhost:3000/payment/esewa_payment_success?q=su"
-                type="hidden"
-                name="su"
-              />
-              <input
-                value="http://localhost:3000/payment/esewa_payment_failed?q=fu"
-                type="hidden"
-                name="fu"
-              />
-              <Button
-                type="submit"
-                value="Submit"
-                variant="contained"
-                color="primary"
-              >
-                pay entry fee={payment.efee}
-              </Button>
-            </form>
-          </div>
-        );
-        return <>{entryAction}</>;
-      } else if (
-        (payment.epaystatus === true) &
-        (payment.vehiclenumber === vnumber)
-      ) {
-        entryAction = (
-          <div>
-            <h1>entry fee paid</h1>
-          </div>
-        );
-        return <>{entryAction}</>;
-      }
-
-      return <></>;
-    });
-    var fineStatus = allPayments.map((payment) => {
-      console.log("paymenssssssssssssssssddt", payment.epaystatus);
-      if (
-        (payment.finestatus === false) &
-        (payment.vehiclenumber === vnumber)
-      ) {
-        var fineAction = (
-          <div>
-            <form action="https://uat.esewa.com.np/epay/main" method="POST">
-              <input value={payment.fine} name="tAmt" type="hidden" />
-              <input value={payment.fine} name="amt" type="hidden" />
-              <input value="0" name="txAmt" type="hidden" />
-              <input value="0" name="psc" type="hidden" />
-              <input value="0" name="pdc" type="hidden" />
-              <input value="EPAYTEST" name="scd" type="hidden" />
-              <input value={random} name="pid" type="hidden" />
-              <input
-                value="http://localhost:3000/payment/esewa_payment_success?q=su"
-                type="hidden"
-                name="su"
-              />
-              <input
-                value="http://localhost:3000/payment/esewa_payment_failed?q=fu"
-                type="hidden"
-                name="fu"
-              />
-              <Button
-                type="submit"
-                value="Submit"
-                variant="contained"
-                color="primary"
-              >
-                pay fine ={payment.fine}
-              </Button>
-            </form>
-          </div>
-        );
-        return <>{fineAction}</>;
-      } else if (
-        (payment.finestatus === true) &
-        (payment.vehiclenumber === vnumber)
-      ) {
-        fineAction = (
-          <div>
-            <h4>No fine</h4>
-          </div>
-        );
-        return <>{fineAction}</>;
-      }
-
-      return <></>;
-    });
-  }
-
-  console.log("registerd status   ", status);
-  if (status === "success") {
-    var registerAction = (
-      <div>
-        {/* <h4>Pay entry fee {vnumber}</h4>
-        <h4>{paymentStatus}</h4>
-        <h4>Pay fine fee {fineStatus}</h4>
-        <br /> */}
-        <main class="page payment-page">
-          <section class="clean-block payment-form dark">
-            <div class="container">
-              <div class="block-heading">
-                <h2 class="text-info">Payment</h2>
-              </div>
-              <form>
-                <div class="products">
-                  <h3 class="title">Checkout</h3>
-                  <div class="item">
-                    <span class="price">{paymentStatus}</span>
-                    <p class="item-name"> Entry fee</p>
-                  </div>
-                  <div class="item">
-                    <span class="price">$120</span>
-                    <p class="item-name"> Fine</p>
-                  </div>
-                  <div class="total">
-                    <span>Total</span>
-                    <span class="price">$320</span>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </section>
-        </main>
-      </div>
-    );
-  }
-  if (status === "failure") {
-    registerAction = (
-      <div>
-        <h1>Vehicle not registered</h1>
-      </div>
-    );
-  }
-
-  const onCheck = (values, onCheckProps) => {
-    console.log("Form data dddddddddddddddddddddddddddddd", values);
-    onCheckProps.resetForm();
-
-    let check = vehicleNumber2.includes(values.vehicleNumber);
-    if (check) {
-      check = "success";
-      setCurrentStatus(check);
-      setVnumber(values.vehicleNumber);
-      setPay("valid");
-    } else {
-      check = "failure";
-      setCurrentStatus(check);
-    }
-  };
+  // console.log("allCounter", allVehicles);
   return (
-    <>
-      <div>
-        <main class="page login-page">
-          <section class="clean-block clean-form dark">
-            <div class="container">
-              <div class="block-heading">
-                <br />
-                <h2 class="text-info">Log In</h2>
-                <p>Lorem ipsum dolor sit amet, c in, mattis vitae leo.</p>
-              </div>
-              <Formik
-                initialValues={initialCheck}
-                //   validationSchema={validationSchema}
-                onSubmit={onCheck}
-              >
-                {(formik) => {
-                  return (
-                    <>
-                      <Form class="Form-group">
-                        {/* <Row> */}
-                        <Col>
-                          <Field
-                            component={TextField}
-                            label="Email"
-                            name="email"
-                            size="medium"
-                            id="standard-size-small"
-                            InputProps={{ notched: "true" }}
-                          />
-                        </Col>
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <TableHead>
+          <StyledTableRow>
+            <StyledTableCell>Sn</StyledTableCell>
+            <StyledTableCell align="right">name</StyledTableCell>
 
-                        <Col>
-                          <Field
-                            component={TextField}
-                            label="vehicleNumber"
-                            name="vehicleNumber"
-                            size="medium"
-                            id="standard-size-small"
-                            InputProps={{ notched: "true" }}
-                          />
-                        </Col>
-                        <Typography
-                          align="left"
-                          variant="h6"
-                          noWrap
-                        ></Typography>
-                        <Col>
-                          <br />
-                          <Button
-                            type="submit"
-                            disabled={!formik.isValid}
-                            variant="contained"
-                            color="primary"
-                          >
-                            Check
-                          </Button>
-                        </Col>
-                        {/* </Row> */}
-                      </Form>
-                    </>
+            <StyledTableCell align="right">vehicle number</StyledTableCell>
+            <StyledTableCell align="right">c1&nbsp;</StyledTableCell>
+            <StyledTableCell align="right">c2&nbsp;</StyledTableCell>
+            {/* <StyledTableCell align="right">c3&nbsp;</StyledTableCell> */}
+            <StyledTableCell align="right">status</StyledTableCell>
+          </StyledTableRow>
+        </TableHead>
+        <TableBody>
+          {allCounter.map((counter, ids) => {
+            var time1 = new Date(counter.checkpoint1);
+            var time2 = new Date(counter.checkpoint2);
+
+            var ElapsedSeconds = (time2 - time1) / 1000;
+            var ElapsedHours = ElapsedSeconds / 3600;
+            var vehicleNumber = allPayments.map((payment) => {
+              if (payment.vehiclenumber === counter.vehiclenumber) {
+                if (ElapsedSeconds > 60 && payment.remark === false) {
+                  dispatch(
+                    updatePayment(
+                      payment.id,
+                      payment.epaystatus,
+                      "false",
+                      20,
+                      payment.efee,
+                      payment.remark
+                    )
                   );
-                }}
-              </Formik>
-            </div>
-          </section>
-        </main>
-        <div>
-          <h1>{registerAction}</h1>
-          {/* <h1>{vehicleNumber}</h1> */}
-        </div>
-      </div>
-    </>
-  );
-}
+                }
+              }
+              return <></>;
+            });
 
-export default StatusContainer;
+            var vehicleName = allVehicles.map((vehicle) => {
+              console.log("vehicle", vehicle);
+              if (vehicle.vehiclenumber === counter.vehiclenumber) {
+                return <>{vehicle.name}</>;
+              }
+
+              return <></>;
+            });
+
+            console.log("vehicleName", vehicleName);
+
+            if (
+              moment(counter.checkpoint2).format(" h:mm:ss a ") ===
+              "Invalid date"
+            ) {
+              var random = " -------- ";
+              var status2 = "running";
+            } else {
+              random = moment(counter.checkpoint2).format(" h:mm:ss a ");
+              if (ElapsedSeconds > 60) {
+                var status = "fined";
+              } else {
+                status = "completed";
+              }
+            }
+
+            console.log("counterssssssss", counter.checkpoint2);
+
+            return (
+              <>
+                <div>{vehicleNumber}</div>
+                <StyledTableRow
+                  key={counter.ids}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <StyledTableCell component="th" scope="row">
+                    {ids + 1}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">{vehicleName}</StyledTableCell>
+
+                  <StyledTableCell align="right">
+                    {counter.vehiclenumber}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    {moment(counter.checkpoint1).format("h:mm:ss a")}
+                  </StyledTableCell>
+                  <StyledTableCell align="right">{random}</StyledTableCell>
+                  {/* <StyledTableCell align="right">
+                  {counter.checkpoint3}
+                </StyledTableCell> */}
+                  <StyledTableCell align="right">
+                    {status}
+                    {status2}
+                  </StyledTableCell>
+                </StyledTableRow>
+              </>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </TableContainer>
+  );
+};
+
+export default GetVehicleContainer;

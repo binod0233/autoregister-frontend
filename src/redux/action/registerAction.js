@@ -37,7 +37,7 @@ export const registerVehicle = (name, email, phone, vehicleNumber) => {
       data: {
         name: name,
         email: email,
-        phonenumber: phone,
+        phone: phone,
         vehiclenumber: vehicleNumber,
       },
       headers: { "content-type": "application/json" },

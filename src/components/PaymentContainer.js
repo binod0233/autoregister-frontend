@@ -13,6 +13,7 @@ import queryString from "query-string";
 
 import { Row, Col } from "react-bootstrap";
 import RegisterContainer from "./RegisterContainer";
+import Header from "./Header";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,6 +38,7 @@ function PaymentContainer(props) {
   const classes = useStyles();
   const [status, setCurrentStatus] = useState("");
   const [vnumber, setVnumber] = useState("");
+  const [count, setCount] = useState(0);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchVehicle());
@@ -57,46 +59,33 @@ function PaymentContainer(props) {
   }, [dispatch]);
 
   const queryParams = queryString.parse(window.location.search);
-  let navigate = useNavigate();
+  // let navigate = useNavigate();
 
   const allPayments = useSelector((state) => state.payment.allPayments);
   console.log("parameter", queryParams);
   var vehicleNumber = allPayments.map((payment) => {
     if (payment.vehiclenumber === vnumber) {
-      if ((queryParams.q === "su") & (queryParams.amt === "10.0")) {
+      if (queryParams.q === "su") {
         console.log(
           "vehicleNusssssssssssssssssssssssssssssssssssssssssssssssssssssmber",
           payment
         );
-        dispatch(
-          updatePayment(
-            payment.id,
-            "true",
-            payment.finestatus,
-            payment.fine,
-            10
-          )
-        );
-
+        dispatch(updatePayment(payment.id, "true", "true", 0, 0, "true"));
+        // setCount(1);
         var paid = (
           <div>
             {" "}
             <h1>Payment Successful</h1>
-            <h2>Your payment of Rs. 10 has been received</h2>
+            <h2>Your payment of Rs. {queryParams.amt} has been received</h2>
+            <h6>
+              Go to homepage
+              <a href="/">
+                <p>Home</p>
+              </a>
+            </h6>
           </div>
         );
-        navigate("/status?q=su&amt=10.0");
-      } else if (queryParams.q === "su") {
-        dispatch(
-          updatePayment(payment.id, payment.epaystatus, "true", 0, payment.efee)
-        );
-
-        paid = (
-          <div>
-            <h1>Payment Successful</h1>
-            <h2>Your payment of Rs. 20 has been received</h2>
-          </div>
-        );
+        // navigate("/status?q=su&amt=10.0");
       } else if (queryParams.q === "fu") {
         dispatch(
           updatePayment(
@@ -104,12 +93,19 @@ function PaymentContainer(props) {
             payment.epaystatus,
             payment.finestatus,
             payment.fine,
-            payment.efee
+            payment.efee,
+            payment.remark
           )
         );
         paid = (
           <div>
             <h1>Payment Unsucessful</h1>
+            <h6>
+              Go to homepage
+              <a href="/">
+                <p>Home</p>
+              </a>
+            </h6>
           </div>
         );
       }
@@ -122,7 +118,7 @@ function PaymentContainer(props) {
   // var vehicleNumber = allVehicles.map((vehicle) => vehicle.createdAt);
   var vehicleNumber2 = allVehicles.map((vehicle) => vehicle.vehiclenumber);
 
-  console.log("vehicleNumber", vehicleNumber);
+  console.log("vehicleNumber", count);
   console.log("vehicleNumber2", vnumber);
 
   console.log("vehicle detailsdddddddddddddddddddddddddddddddddd", allPayments);
@@ -152,9 +148,9 @@ function PaymentContainer(props) {
       setCurrentStatus(check);
     }
   };
-  return (
+  return count === 0 ? (
     <>
-      <div className={classes.root}>
+      <div>
         <Grid container direction="row" justify="center" alignItems="center">
           <Paper className={classes.paper} elevation={2}>
             <Typography>Enter vehicle no. to conform the payment</Typography>
@@ -182,6 +178,7 @@ function PaymentContainer(props) {
                           noWrap
                         ></Typography>
                         <Col>
+                          <br />
                           <Button
                             type="submit"
                             disabled={!formik.isValid}
@@ -204,6 +201,10 @@ function PaymentContainer(props) {
           <h1>{vehicleNumber}</h1>
         </div>
       </div>
+    </>
+  ) : (
+    <>
+      <h1>done</h1>
     </>
   );
 }

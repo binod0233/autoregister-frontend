@@ -7,11 +7,9 @@ import { makeStyles, createTheme } from "@material-ui/core/styles";
 import { Formik, Form, Field } from "formik";
 import { Button, Paper, Grid, Typography } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
-import { useSelector, useDispatch } from "react-redux";
 
 import * as Yup from "yup";
 import { Row, Col } from "react-bootstrap";
-import Header from "./Header";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,9 +53,8 @@ function RegisterContainer(props) {
       values.phone,
       values.vehicleNumber
     );
-    if (props.message === "Vehicle Registered successfully") {
-      props.addPayment(values.vehicleNumber, false, false, 10, 0);
-    }
+    // if (props.message === "Vehicle Registered successfully") {
+    props.addPayment(values.vehicleNumber, false, false, 10, 0, false);
   };
 
   return (
@@ -68,8 +65,8 @@ function RegisterContainer(props) {
             <div class="container">
               <div class="block-heading">
                 <br />
-                <h2 class="text-info">Log In</h2>
-                <p>Lorem ipsum dolor sit amet, c in, mattis vitae leo.</p>
+                <h2 class="text-info"> Register vehicle</h2>
+                {/* <p>Lorem ipsum dolor sit amet, c in, mattis vitae leo.</p> */}
               </div>
 
               <Formik
@@ -178,8 +175,17 @@ const mapDispatchtoProps = (dispatch) => {
     registerVehicle: function (name, email, phone, vehicleNumber) {
       dispatch(registerVehicle(name, email, phone, vehicleNumber));
     },
-    addPayment: function (vehiclenumber, epaystatus, finestatus, efee, fine) {
-      dispatch(addPayment(vehiclenumber, epaystatus, finestatus, efee, fine));
+    addPayment: function (
+      vehiclenumber,
+      epaystatus,
+      finestatus,
+      efee,
+      fine,
+      remark
+    ) {
+      dispatch(
+        addPayment(vehiclenumber, epaystatus, finestatus, efee, fine, remark)
+      );
     },
   };
 };

@@ -10,6 +10,7 @@ const initialState = {
   efee: NaN,
   fine: NaN,
   vehiclenumber: NaN,
+  remark: "",
   allPayments: [],
 };
 

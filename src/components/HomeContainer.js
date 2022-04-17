@@ -17,10 +17,11 @@ const HomeContainer = () => {
             }}
           >
             <div className="text">
-              <h2>Lorem ipsum dolor sit amet.</h2>
+              <h2>“AUTO-REGISTERED ENTRY-EXIT FOR VEHICLES AT BP HIGHWAY”</h2>
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                quam urna, dignissim nec auctor in, mattis vitae leo.
+                The BP Highway, also known as the Banepa Bardibas Highway, is a
+                highway in eastern Nepal. It links Kathmandu Valley with the
+                Eastern Terai region......
               </p>
               <button className="btn btn-outline-light btn-lg" type="button">
                 Learn More
@@ -30,22 +31,23 @@ const HomeContainer = () => {
           <section className="clean-block clean-info dark">
             <div className="container">
               <div className="block-heading">
-                <h2 className="text-info">Info</h2>
+                <h2 className="text-info">Objective</h2>
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-                  quam urna, dignissim nec auctor in, mattis vitae leo.
+                  The main objective of this project is to automate the timecard
+                  rule intensified along with automatic tax-payment and speed
+                  monitoring.
                 </p>
               </div>
               <div className="row align-items-center">
                 <div className="col-md-6">
                   <img
                     className="img-thumbnail"
-                    src="assets/img/scenery/image5.jpg"
+                    src="assets/img/scenery/image9.jpg"
                     alt="scenery"
                   />
                 </div>
                 <div className="col-md-6">
-                  <h3>Lorem impsum dolor sit amet</h3>
+                  <h3>Register Vehicle</h3>
                   <div className="getting-started-info">
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
@@ -57,7 +59,7 @@ const HomeContainer = () => {
                     className="btn btn-outline-primary btn-lg"
                     type="button"
                   >
-                    Join Now
+                    <Link to="/register">register vehicle</Link>
                   </button>
                 </div>
               </div>

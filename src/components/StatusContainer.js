@@ -78,10 +78,10 @@ function StatusContainer(props) {
   //     moment(vehicle).format("HHmmss  ")
   //   );
 
-  var date1 = new Date(vehicleNumber2[0]);
-  var date2 = new Date(vehicleNumber2[4]);
-  var ElapsedSeconds = (date2 - date1) / 1000;
-  var ElapsedHours = ElapsedSeconds / 3600;
+  // var date1 = new Date(vehicleNumber2[0]);
+  // var date2 = new Date(vehicleNumber2[4]);
+  // var ElapsedSeconds = (date2 - date1) / 1000;
+  // var ElapsedHours = ElapsedSeconds / 3600;
 
   console.log(
     "vehicle detailsdddddddddddddddddddddddddddddddddd",
@@ -100,40 +100,83 @@ function StatusContainer(props) {
   if (pay === "valid") {
     var paymentStatus = allPayments.map((payment) => {
       console.log("paymenssssssssssssssssddt", payment.epaystatus);
-      if (
-        (payment.epaystatus === false) &
-        (payment.vehiclenumber === vnumber)
-      ) {
+      let total = payment.efee + payment.fine;
+      if (payment.efee === 0) {
+        var paying = "entry fee paid";
+      }
+      if (payment.vehiclenumber === vnumber) {
         var entryAction = (
           <div>
-            {/* <form action="https://uat.esewa.com.np/epay/main" method="POST">
-              <input value={payment.efee} name="tAmt" type="hidden" />
-              <input value={payment.efee} name="amt" type="hidden" />
-              <input value="0" name="txAmt" type="hidden" />
-              <input value="0" name="psc" type="hidden" />
-              <input value="0" name="pdc" type="hidden" />
-              <input value="EPAYTEST" name="scd" type="hidden" />
-              <input value={random} name="pid" type="hidden" />
-              <input
-                value="http://localhost:3000/payment/esewa_payment_success?q=su"
-                type="hidden"
-                name="su"
-              />
-              <input
-                value="http://localhost:3000/payment/esewa_payment_failed?q=fu"
-                type="hidden"
-                name="fu"
-              />
-              <Button
-                type="submit"
-                value="Submit"
-                variant="contained"
-                color="primary"
-              >
-                pay entry fee={payment.efee}
-              </Button>
-            </form> */}
-            <h3>{payment.efee}</h3>
+            <div class="container">
+              <main class="page payment-page">
+                <section class="clean-block payment-form dark">
+                  <div class="block-heading">
+                    <h2 class="text-info">Payment</h2>
+                    <h4 class="text-info"> Vehicle number={vnumber}</h4>
+
+                    <h4 class="text-info">{paying}</h4>
+                  </div>
+                  <div class="container d-md-flex justify-content-md-start justify-content-xl-center">
+                    <form>
+                      <div class="products" style={{ width: "400.9px" }}>
+                        <h3 class="title">Checkout</h3>
+                        <div class="item">
+                          <span class="price">Rs {payment.efee}</span>
+                          <p class="item-name"> Entry fee</p>
+                        </div>
+                        <div class="item">
+                          <span class="price">Rs {payment.fine}</span>
+                          <p class="item-name"> Fine</p>
+                        </div>
+                        <div class="total">
+                          <span>Total</span>
+                          <span class="price">Rs {total}</span>
+                        </div>
+                      </div>
+                    </form>
+
+                    <form
+                      action="https://uat.esewa.com.np/epay/main"
+                      method="POST"
+                    >
+                      <div class="products" style={{ width: "400.9px" }}>
+                        <h3 class="title">Esewa</h3>
+                        <div class="item">
+                          <span class="price">Rs {total}</span>
+                          <p class="item-name"> Amount</p>
+                        </div>
+                      </div>
+                      <input value={total} name="tAmt" type="hidden" />
+                      <input value={total} name="amt" type="hidden" />
+                      <input value="0" name="txAmt" type="hidden" />
+                      <input value="0" name="psc" type="hidden" />
+                      <input value="0" name="pdc" type="hidden" />
+                      <input value="EPAYTEST" name="scd" type="hidden" />
+                      <input value={random} name="pid" type="hidden" />
+                      <input
+                        value="http://localhost:3000/payment/esewa_payment_success?q=su"
+                        type="hidden"
+                        name="su"
+                      />
+                      <input
+                        value="http://localhost:3000/payment/esewa_payment_failed?q=fu"
+                        type="hidden"
+                        name="fu"
+                      />
+                      <Button
+                        type="submit"
+                        value="Submit"
+                        variant="contained"
+                        color="primary"
+                        disabled={total === 0}
+                      >
+                        Esewa Pay
+                      </Button>
+                    </form>
+                  </div>
+                </section>
+              </main>
+            </div>
           </div>
         );
         return <>{entryAction}</>;
@@ -186,6 +229,32 @@ function StatusContainer(props) {
                 pay fine ={payment.fine}
               </Button>
             </form> */}
+            <main class="page payment-page">
+              <section class="clean-block payment-form dark">
+                <div class="container">
+                  <div class="block-heading">
+                    <h2 class="text-info">Payment</h2>
+                  </div>
+                  <form>
+                    <div class="products">
+                      <h3 class="title">Checkout</h3>
+                      <div class="item">
+                        <span class="price">{paymentStatus}</span>
+                        <p class="item-name"> Entry fee</p>
+                      </div>
+                      <div class="item">
+                        <span class="price">${fineStatus}</span>
+                        <p class="item-name"> Fine</p>
+                      </div>
+                      <div class="total">
+                        <span>Total</span>
+                        <span class="price">$320</span>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </section>
+            </main>
             <h3>{payment.fine}</h3>
           </div>
         );
@@ -214,7 +283,7 @@ function StatusContainer(props) {
         <h4>{paymentStatus}</h4>
         <h4>Pay fine fee {fineStatus}</h4>
         <br /> */}
-        <main class="page payment-page">
+        {/* <main class="page payment-page">
           <section class="clean-block payment-form dark">
             <div class="container">
               <div class="block-heading">
@@ -239,7 +308,8 @@ function StatusContainer(props) {
               </form>
             </div>
           </section>
-        </main>
+        </main> */}
+        {paymentStatus}
       </div>
     );
   }
@@ -274,8 +344,8 @@ function StatusContainer(props) {
             <div class="container">
               <div class="block-heading">
                 <br />
-                <h2 class="text-info">Log In</h2>
-                <p>Lorem ipsum dolor sit amet, c in, mattis vitae leo.</p>
+                <h2 class="text-info">Check Status </h2>
+                {/* <p>Lorem ipsum dolor sit amet, c in, mattis vitae leo.</p> */}
               </div>
               <Formik
                 initialValues={initialCheck}
@@ -331,12 +401,9 @@ function StatusContainer(props) {
                 }}
               </Formik>
             </div>
+            {registerAction}
           </section>
         </main>
-        <div>
-          <h1>{registerAction}</h1>
-          {/* <h1>{vehicleNumber}</h1> */}
-        </div>
       </div>
     </>
   );

@@ -9,7 +9,7 @@ function Copyright() {
     <div class="footer-copyright">
       <Typography align="center">
         {"Copyright © "}
-        <Link color="inherit">Auto Vehicle Register System</Link>{" "}
+        <Link color="inherit">Auto Register Vehicle System</Link>{" "}
         {new Date().getFullYear()}
         {"."}
       </Typography>

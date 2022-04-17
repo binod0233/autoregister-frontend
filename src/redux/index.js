@@ -4,3 +4,4 @@ export {
   fetchPayment,
   updatePayment,
 } from "./action/paymentAction";
+export { fetchCounter } from "./action/counterAction";
