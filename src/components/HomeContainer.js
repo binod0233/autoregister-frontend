@@ -26,6 +26,9 @@ const HomeContainer = () => {
               <button className="btn btn-outline-light btn-lg" type="button">
                 Learn More
               </button>
+<button className="btn btn-outline-light btn-lg" type="button">
+                <a href="https://streamable.com/w4k7y6" target="_blank" rel="noopener noreferrer" style="color: rgb(2,8,13);border-color: var(--white);">Demo video</a>
+              </button>
             </div>
           </section>
           <section className="clean-block clean-info dark">
