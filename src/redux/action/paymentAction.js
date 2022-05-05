@@ -5,7 +5,6 @@ import {
   UPDATE_PAYMENT,
 } from "../action/paymentType";
 export const fetchPayment = (query) => {
-  
   return function (dispatch) {
     var OPTION = {
       url: `http://localhost:1337/payments`,
@@ -18,7 +17,6 @@ export const fetchPayment = (query) => {
 
     axios(OPTION)
       .then((res) => {
-        
         const payment = res.data;
         dispatch(getPayment(payment));
       })
@@ -38,7 +36,6 @@ export const addPayment = (
   fine,
   remark
 ) => {
-  
   return function (dispatch) {
     var OPTIONS = {
       url: `http://localhost:1337/payments`,
@@ -57,12 +54,11 @@ export const addPayment = (
 
     axios(OPTIONS)
       .then((res) => {
-        
         let message = res.data;
         if (message === true) {
           message = "payment Registered successfully";
         }
-        
+
         dispatch({
           type: ADD_PAYMENT,
           payload: message,
@@ -74,7 +70,6 @@ export const addPayment = (
           message = "fine or Username already taken";
         }
 
-        
         dispatch({
           type: ADD_PAYMENT,
           payload: message,
@@ -91,7 +86,6 @@ export const updatePayment = (
   efee,
   remark
 ) => {
-  
   return function (dispatch) {
     var OPTIONS = {
       url: `http://localhost:1337/payments/${id}`,
@@ -109,7 +103,6 @@ export const updatePayment = (
 
     axios(OPTIONS)
       .then((res) => {
-        
         let message = res.data;
         if (message === true) {
           message = "payment Registered successfully";

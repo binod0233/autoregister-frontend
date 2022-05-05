@@ -12,7 +12,6 @@ export const fetchCounter = () => {
     };
     axios(OPTION)
       .then((res) => {
-        
         const counter = res.data;
         dispatch(getCounter(counter));
       })

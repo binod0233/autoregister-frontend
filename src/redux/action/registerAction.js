@@ -2,7 +2,6 @@ import axios from "axios";
 import { FETCH_VEHICLE, REGISTER_VEHICLE } from "../action/registerType";
 
 export const fetchVehicle = (query) => {
-  
   return function (dispatch) {
     var OPTION = {
       url: `http://localhost:1337/vehicles`,
@@ -15,7 +14,6 @@ export const fetchVehicle = (query) => {
 
     axios(OPTION)
       .then((res) => {
-        
         const vehicle = res.data;
         dispatch(getVehicle(vehicle));
       })
@@ -28,7 +26,6 @@ export const getVehicle = (vehicles) => {
 };
 
 export const registerVehicle = (name, email, phone, vehicleNumber) => {
-  
   return function (dispatch) {
     var OPTIONS = {
       url: `http://localhost:1337/vehicles`,
@@ -45,10 +42,8 @@ export const registerVehicle = (name, email, phone, vehicleNumber) => {
 
     axios(OPTIONS)
       .then((res) => {
-        
-
         let message = "Vehicle Registered successfully";
-        
+
         dispatch({
           type: REGISTER_VEHICLE,
           payload: message,
@@ -60,7 +55,6 @@ export const registerVehicle = (name, email, phone, vehicleNumber) => {
           message = "Email or vehicle no. already registerd";
         }
 
-        
         dispatch({
           type: REGISTER_VEHICLE,
           payload: message,
