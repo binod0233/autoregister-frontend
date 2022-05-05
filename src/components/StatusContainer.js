@@ -96,30 +96,30 @@ function StatusContainer(props) {
       if (payment.vehiclenumber === vnumber) {
         var entryAction = (
           <div>
-            <div class="container">
-              <main class="page payment-page">
-                <section class="clean-block payment-form dark">
-                  <div class="block-heading">
-                    <h2 class="text-info">Payment</h2>
-                    <h4 class="text-info"> Vehicle number={vnumber}</h4>
+            <div className="container">
+              <main className="page payment-page">
+                <section className="clean-block payment-form dark">
+                  <div className="block-heading">
+                    <h2 className="text-info">Payment</h2>
+                    <h4 className="text-info"> Vehicle number={vnumber}</h4>
 
-                    <h4 class="text-info">{paying}</h4>
+                    <h4 className="text-info">{paying}</h4>
                   </div>
-                  <div class="container d-md-flex justify-content-md-start justify-content-xl-center">
+                  <div className="container d-md-flex justify-content-md-start justify-content-xl-center">
                     <form>
-                      <div class="products" style={{ width: "400.9px" }}>
-                        <h3 class="title">Checkout</h3>
-                        <div class="item">
-                          <span class="price">Rs {payment.efee}</span>
-                          <p class="item-name"> Entry fee</p>
+                      <div className="products" style={{ width: "400.9px" }}>
+                        <h3 className="title">Checkout</h3>
+                        <div className="item">
+                          <span className="price">Rs {payment.efee}</span>
+                          <p className="item-name"> Entry fee</p>
                         </div>
-                        <div class="item">
-                          <span class="price">Rs {payment.fine}</span>
-                          <p class="item-name"> Fine</p>
+                        <div className="item">
+                          <span className="price">Rs {payment.fine}</span>
+                          <p className="item-name"> Fine</p>
                         </div>
-                        <div class="total">
+                        <div className="total">
                           <span>Total</span>
-                          <span class="price">Rs {total}</span>
+                          <span className="price">Rs {total}</span>
                         </div>
                       </div>
                     </form>
@@ -128,11 +128,11 @@ function StatusContainer(props) {
                       action="https://uat.esewa.com.np/epay/main"
                       method="POST"
                     >
-                      <div class="products" style={{ width: "400.9px" }}>
-                        <h3 class="title">Esewa</h3>
-                        <div class="item">
-                          <span class="price">Rs {total}</span>
-                          <p class="item-name"> Amount</p>
+                      <div className="products" style={{ width: "400.9px" }}>
+                        <h3 className="title">Esewa</h3>
+                        <div className="item">
+                          <span className="price">Rs {total}</span>
+                          <p className="item-name"> Amount</p>
                         </div>
                       </div>
                       <input value={total} name="tAmt" type="hidden" />
@@ -217,26 +217,26 @@ function StatusContainer(props) {
                 pay fine ={payment.fine}
               </Button>
             </form> */}
-            <main class="page payment-page">
-              <section class="clean-block payment-form dark">
-                <div class="container">
-                  <div class="block-heading">
-                    <h2 class="text-info">Payment</h2>
+            <main className="page payment-page">
+              <section className="clean-block payment-form dark">
+                <div className="container">
+                  <div className="block-heading">
+                    <h2 className="text-info">Payment</h2>
                   </div>
                   <form>
-                    <div class="products">
-                      <h3 class="title">Checkout</h3>
-                      <div class="item">
-                        <span class="price">{paymentStatus}</span>
-                        <p class="item-name"> Entry fee</p>
+                    <div className="products">
+                      <h3 className="title">Checkout</h3>
+                      <div className="item">
+                        <span className="price">{paymentStatus}</span>
+                        <p className="item-name"> Entry fee</p>
                       </div>
-                      <div class="item">
-                        <span class="price">${fineStatus}</span>
-                        <p class="item-name"> Fine</p>
+                      <div className="item">
+                        <span className="price">${fineStatus}</span>
+                        <p className="item-name"> Fine</p>
                       </div>
-                      <div class="total">
+                      <div className="total">
                         <span>Total</span>
-                        <span class="price">$320</span>
+                        <span className="price">$320</span>
                       </div>
                     </div>
                   </form>
@@ -325,12 +325,12 @@ function StatusContainer(props) {
   return (
     <>
       <div>
-        <main class="page login-page">
-          <section class="clean-block clean-form dark">
-            <div class="container">
-              <div class="block-heading">
+        <main className="page login-page">
+          <section className="clean-block clean-form dark">
+            <div className="container">
+              <div className="block-heading">
                 <br />
-                <h2 class="text-info">Check Status </h2>
+                <h2 className="text-info">Check Status </h2>
                 {/* <p>Lorem ipsum dolor sit amet, c in, mattis vitae leo.</p> */}
               </div>
               <Formik

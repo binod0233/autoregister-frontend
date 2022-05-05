@@ -155,46 +155,46 @@
 // // }
 
 <div
-  class="container d-md-flex justify-content-md-start align-items-md-start"
+  className="container d-md-flex justify-content-md-start align-items-md-start"
   style="text-align: left;"
 >
   <form>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input id="email" class="form-control item" type="email" />
+    <div className="form-group">
+      <label htmlFor="email">Email</label>
+      <input id="email" className="form-control item" type="email" />
     </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input id="password" class="form-control" type="password" />
+    <div className="form-group">
+      <label htmlFor="password">Password</label>
+      <input id="password" className="form-control" type="password" />
     </div>
-    <div class="form-group">
-      <div class="form-check">
-        <input id="checkbox" class="form-check-input" type="checkbox" />
-        <label class="form-check-label" for="checkbox">
+    <div className="form-group">
+      <div className="form-check">
+        <input id="checkbox" className="form-check-input" type="checkbox" />
+        <label className="form-check-label" htmlFor="checkbox">
           Remember me
         </label>
       </div>
     </div>
-    <button class="btn btn-primary btn-block" type="submit">
+    <button className="btn btn-primary btn-block" type="submit">
       Log In
     </button>
   </form>
   <form>
-    <div class="products">
-      <h3 class="title">Checkout</h3>
-      <div class="item">
-        <span class="price">$200</span>
-        <p class="item-name">Product 1</p>
-        <p class="item-description">Lorem ipsum dolor sit amet</p>
+    <div className="products">
+      <h3 className="title">Checkout</h3>
+      <div className="item">
+        <span className="price">$200</span>
+        <p className="item-name">Product 1</p>
+        <p className="item-description">Lorem ipsum dolor sit amet</p>
       </div>
-      <div class="item">
-        <span class="price">$120</span>
-        <p class="item-name">Product 2</p>
-        <p class="item-description">Lorem ipsum dolor sit amet</p>
+      <div className="item">
+        <span className="price">$120</span>
+        <p className="item-name">Product 2</p>
+        <p className="item-description">Lorem ipsum dolor sit amet</p>
       </div>
-      <div class="total">
+      <div className="total">
         <span>Total</span>
-        <span class="price">$320</span>
+        <span className="price">$320</span>
       </div>
     </div>
   </form>
