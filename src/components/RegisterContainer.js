@@ -59,12 +59,12 @@ function RegisterContainer(props) {
   return (
     <>
       <div>
-        <main class="page login-page">
-          <section class="clean-block clean-form dark">
-            <div class="container">
-              <div class="block-heading">
+        <main className="page login-page">
+          <section className="clean-block clean-form dark">
+            <div className="container">
+              <div className="block-heading">
                 <br />
-                <h2 class="text-info"> Register vehicle</h2>
+                <h2 className="text-info"> Register vehicle</h2>
                 {/* <p>Lorem ipsum dolor sit amet, c in, mattis vitae leo.</p> */}
               </div>
 

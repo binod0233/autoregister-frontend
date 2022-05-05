@@ -6,7 +6,7 @@ import Link from "@material-ui/core/Link";
 
 function Copyright() {
   return (
-    <div class="footer-copyright">
+    <div className="footer-copyright">
       <Typography align="center">
         {"Copyright © "}
         <Link color="inherit">Auto Register Vehicle System</Link>{" "}
