@@ -31,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RegisterContainer(props) {
-  
   const initialValues = {
     name: "",
     phone: "",
