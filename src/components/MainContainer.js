@@ -14,7 +14,7 @@ import About from "./About";
 
 const MainContainer = () => {
   const queryParams = queryString.parse(window.location.search);
-  console.log("queryParams", queryParams);
+  
   if (queryParams.q === "su" || queryParams.q === "fu") {
     var callContainer = (
       <div>

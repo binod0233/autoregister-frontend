@@ -104,7 +104,7 @@ const GetVehicleContainer = (props) => {
             });
 
             var vehicleName = allVehicles.map((vehicle) => {
-              console.log("vehicle", vehicle);
+              
               if (vehicle.vehiclenumber === counter.vehiclenumber) {
                 return <>{vehicle.name}</>;
               }
@@ -112,7 +112,7 @@ const GetVehicleContainer = (props) => {
               return <></>;
             });
 
-            console.log("vehicleName", vehicleName);
+            
 
             if (
               moment(counter.checkpoint2).format(" h:mm:ss a ") ===
@@ -129,7 +129,7 @@ const GetVehicleContainer = (props) => {
               }
             }
 
-            console.log("counterssssssss", counter.checkpoint2);
+            
 
             return (
               <>
