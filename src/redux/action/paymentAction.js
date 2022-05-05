@@ -5,7 +5,7 @@ import {
   UPDATE_PAYMENT,
 } from "../action/paymentType";
 export const fetchPayment = (query) => {
-  console.log("query datta", query);
+  
   return function (dispatch) {
     var OPTION = {
       url: `http://localhost:1337/payments`,
@@ -18,11 +18,11 @@ export const fetchPayment = (query) => {
 
     axios(OPTION)
       .then((res) => {
-        console.log("get res", res);
+        
         const payment = res.data;
         dispatch(getPayment(payment));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   };
 };
 
@@ -38,15 +38,7 @@ export const addPayment = (
   fine,
   remark
 ) => {
-  console.log(
-    "addPayment",
-    epaystatus,
-    finestatus,
-    vehiclenumber,
-    efee,
-    fine,
-    remark
-  );
+  
   return function (dispatch) {
     var OPTIONS = {
       url: `http://localhost:1337/payments`,
@@ -65,12 +57,12 @@ export const addPayment = (
 
     axios(OPTIONS)
       .then((res) => {
-        console.log("well done", res.data);
+        
         let message = res.data;
         if (message === true) {
           message = "payment Registered successfully";
         }
-        console.log("error data", message);
+        
         dispatch({
           type: ADD_PAYMENT,
           payload: message,
@@ -82,7 +74,7 @@ export const addPayment = (
           message = "fine or Username already taken";
         }
 
-        console.log("Registration error", err);
+        
         dispatch({
           type: ADD_PAYMENT,
           payload: message,
@@ -99,7 +91,7 @@ export const updatePayment = (
   efee,
   remark
 ) => {
-  console.log("updatePayment", id, epaystatus, finestatus, fine, efee, remark);
+  
   return function (dispatch) {
     var OPTIONS = {
       url: `http://localhost:1337/payments/${id}`,
@@ -117,7 +109,7 @@ export const updatePayment = (
 
     axios(OPTIONS)
       .then((res) => {
-        console.log("well done", res.data);
+        
         let message = res.data;
         if (message === true) {
           message = "payment Registered successfully";
