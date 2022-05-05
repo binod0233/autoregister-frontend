@@ -71,7 +71,7 @@ function StatusContainer(props) {
   // var vehicleNumber = allVehicles.map((vehicle) => vehicle.createdAt);
   var vehicleNumber2 = allVehicles.map((vehicle) => vehicle.vehiclenumber);
 
-  console.log("vehicleNumber2", vnumber);
+  
 
   //console.log(); // 11/3/2019
   //   let isoDate = vehicleNumber.map((vehicle) =>
@@ -83,13 +83,7 @@ function StatusContainer(props) {
   // var ElapsedSeconds = (date2 - date1) / 1000;
   // var ElapsedHours = ElapsedSeconds / 3600;
 
-  console.log(
-    "vehicle detailsdddddddddddddddddddddddddddddddddd",
-    allPayments
-
-    // moment.format(isoDate[1], "HH:mm:ss  ") -
-    //   moment.format(isoDate[0], "HH:mm:ss  ")
-  );
+  
 
   const initialCheck = {
     email: "",
@@ -99,7 +93,7 @@ function StatusContainer(props) {
   var random = Math.floor(Math.random() * 1000000);
   if (pay === "valid") {
     var paymentStatus = allPayments.map((payment) => {
-      console.log("paymenssssssssssssssssddt", payment.epaystatus);
+      
       let total = payment.efee + payment.fine;
       if (payment.efee === 0) {
         var paying = "entry fee paid";
@@ -195,7 +189,7 @@ function StatusContainer(props) {
       return <></>;
     });
     var fineStatus = allPayments.map((payment) => {
-      console.log("paymenssssssssssssssssddt", payment.epaystatus);
+      
       if (
         (payment.finestatus === false) &
         (payment.vehiclenumber === vnumber)
@@ -275,7 +269,7 @@ function StatusContainer(props) {
     });
   }
 
-  console.log("registerd status   ", status);
+  
   if (status === "success") {
     var registerAction = (
       <div>
@@ -322,7 +316,7 @@ function StatusContainer(props) {
   }
 
   const onCheck = (values, onCheckProps) => {
-    console.log("Form data dddddddddddddddddddddddddddddd", values);
+    
     onCheckProps.resetForm();
 
     let check = vehicleNumber2.includes(values.vehicleNumber);

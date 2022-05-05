@@ -12,11 +12,11 @@ export const fetchCounter = () => {
     };
     axios(OPTION)
       .then((res) => {
-        console.log("get res", res);
+        
         const counter = res.data;
         dispatch(getCounter(counter));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   };
 };
 

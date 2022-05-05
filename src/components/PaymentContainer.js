@@ -62,14 +62,11 @@ function PaymentContainer(props) {
   // let navigate = useNavigate();
 
   const allPayments = useSelector((state) => state.payment.allPayments);
-  console.log("parameter", queryParams);
+  
   var vehicleNumber = allPayments.map((payment) => {
     if (payment.vehiclenumber === vnumber) {
       if (queryParams.q === "su") {
-        console.log(
-          "vehicleNusssssssssssssssssssssssssssssssssssssssssssssssssssssmber",
-          payment
-        );
+        
         dispatch(updatePayment(payment.id, "true", "true", 0, 0, "true"));
         // setCount(1);
         var paid = (
@@ -118,10 +115,10 @@ function PaymentContainer(props) {
   // var vehicleNumber = allVehicles.map((vehicle) => vehicle.createdAt);
   var vehicleNumber2 = allVehicles.map((vehicle) => vehicle.vehiclenumber);
 
-  console.log("vehicleNumber", count);
-  console.log("vehicleNumber2", vnumber);
+  
+  
 
-  console.log("vehicle detailsdddddddddddddddddddddddddddddddddd", allPayments);
+  
 
   const initialCheck = {
     vehicleNumber: "",
